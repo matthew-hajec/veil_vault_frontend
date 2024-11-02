@@ -112,7 +112,7 @@ The actual content of the file.
 
 - **Algorithm**: AES-GCM (Advanced Encryption Standard - Galois/Counter Mode)
 - **Key Derivation**: PBKDF2 (Password-Based Key Derivation Function 2) with HMAC-SHA256
-  - **Parameters**: 100,000 iterations, 256-bit key length
+  - **Parameters**: 650,000 iterations, 256-bit key length
 - **Initialization Vector (IV)**: Randomly generated for each encryption
 - **Salt**: Randomly generated for each encryption
 
