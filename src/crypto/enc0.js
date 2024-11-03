@@ -2,6 +2,8 @@
 // In this file, Uint8Array is used for all byte arrays
 
 // Convert a number to a uint8 byte array in big-endian order
+// Truncates the number to fit the byte length
+// Returns bytes for zero instead of negative numbers
 export function numberToBytesBE(number, byteLength) {
     if (number < 0) {
         // Return bytes for zero instead of negative numbers

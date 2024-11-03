@@ -6,6 +6,11 @@ test('numberToBytesBE returns a Uint8Array', () => {
     expect(result).toBeInstanceOf(Uint8Array)
 })
 
+test('numberToBytesBE returns the correct number of bytes', () => {
+    const result = numberToBytesBE(0, 25)
+    expect(result.length).toBe(25)
+})
+
 test('numberToBytesBE returns the big-endian bytes for a number', () => {
     const result = numberToBytesBE(0x1234, 10)
     expect(result).toEqual(new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0x12, 0x34]))
