@@ -41,7 +41,7 @@ export function concatUint8Arrays(...arrays) {
     return result;
 }
 
-async function deriveKey(password, salt) {
+export async function deriveKey(password, salt) {
     const encoder = new TextEncoder();
     const passwordKey = await crypto.subtle.importKey(
         "raw",

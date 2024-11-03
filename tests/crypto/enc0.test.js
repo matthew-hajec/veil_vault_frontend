@@ -1,5 +1,5 @@
-import {expect, test} from 'vitest'
-import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays} from './src/crypto/enc0.js'
+import {expect, test, vi} from 'vitest'
+import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey} from './src/crypto/enc0.js'
 
 // ====================
 // numberToBytesBE
@@ -103,3 +103,58 @@ test('concatUint8Arrays returns the correct bytes when passed zeroed arrays', ()
     const result = concatUint8Arrays(new Uint8Array([0, 0]), new Uint8Array([0, 0, 0]))
     expect(result).toEqual(new Uint8Array([0, 0, 0, 0, 0]))
 })
+
+// ====================
+// deriveKey
+// these are integration tests, since they use the Web Crypto API, which can be affected by the environment
+// ====================
+test('deriveKey returns a CryptoKey', async () => {
+    const result = await deriveKey('password', new Uint8Array(16))
+    expect(result).toBeInstanceOf(CryptoKey)
+})
+
+test('deriveKey returns a key that can be used for encryption and decryption', async () => {
+    const key = await deriveKey('password', new Uint8Array(16))
+    // check the properties of the key, should have encrypt and decrypt
+    expect(key.usages).toEqual(['encrypt', 'decrypt'])
+})
+
+test('deriveKey returns a key that uses AES-GCM', async () => {
+    const key = await deriveKey('password', new Uint8Array(16))
+    expect(key.algorithm.name).toBe('AES-GCM')
+})
+
+test('deriveKey returns a 256-bit key', async () => {
+    const key = await deriveKey('password', new Uint8Array(16))
+    expect(key.algorithm.length).toBe(256)
+})
+
+test('derikeKey returns an extractable key', async () => {
+    const key = await deriveKey('password', new Uint8Array(16))
+    expect(key.extractable).toBe(true)
+})
+
+test('deriveKey returns a key which uses PBKDF2 with SHA-256 hash and 650,000 iterations', async () => {
+    // Mock the global crypto.subtle.deriveKey function
+    const original = global.crypto.subtle.deriveKey
+    
+    global.crypto.subtle.deriveKey = vi.fn().mockResolvedValue(null)
+
+    await deriveKey('password', new Uint8Array(16))
+
+    expect(global.crypto.subtle.deriveKey).toHaveBeenCalledWith(
+        {
+            name: "PBKDF2",
+            salt: new Uint8Array(16),
+            iterations: 650_000,
+            hash: "SHA-256"
+        },
+        expect.anything(),
+        expect.anything(),
+        expect.anything(),
+        expect.anything()
+    )
+
+    // Restore the original function
+    global.crypto.subtle.deriveKey = original
+});
