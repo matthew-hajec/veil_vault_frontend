@@ -107,6 +107,7 @@ test('concatUint8Arrays returns the correct bytes when passed zeroed arrays', ()
 // ====================
 // deriveKey
 // these are integration tests, since they use the Web Crypto API, which can be affected by the environment
+// expect them to run much slower than the other tests, and they may fail for environmental reasons (such as low entropy)
 // ====================
 test('deriveKey returns a CryptoKey', async () => {
     const result = await deriveKey('password', new Uint8Array(16))
