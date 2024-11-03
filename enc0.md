@@ -68,7 +68,7 @@ The salt used in the key derivation function.
 
 Contains the encrypted file data and metadata.
 
-- **Contents**: One or more encrypted files.
+- **Contents**: A single encrypted file and basic metadata.
 - **Encryption**: The entire data is encrypted using AES-GCM.
 
 ## Encrypted Data Structure
@@ -100,7 +100,7 @@ The name of the file.
 
 The actual content of the file.
 
-- **Length**: Until the end of this file's data or the start of the next file (if multiple files are supported).
+- **Length**: Until the end of the.
 - **Purpose**: Contains the data that was originally in the file before encryption.
 
 ## Data Encoding and Formats

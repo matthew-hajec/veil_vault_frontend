@@ -1,8 +1,9 @@
-# React + Vite
+# Veil Vault
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Supports client-side decryption and encryption of files using a password. 
 
-Currently, two official plugins are available:
+Future plans include adding support for uploading and downloading files via shared links. All data will be encrypted and decrypted client-side, ensuring that the server never has access to the unencrypted data.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Details
+
+For more details on the encryption process and data structure, refer to the [ENC0](enc0.md) document.
