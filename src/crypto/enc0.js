@@ -132,7 +132,7 @@ export async function makeEnc0File(file, password) {
     const saltLength = numberToBytesBE(salt.length, 2); // 2 bytes for salt length
 
     // Combine all the bytes
-    return concatUint8Arrays(
+    const enc0Bytes = concatUint8Arrays(
         magicNumber,
         versionNumber,
         ivLength,
@@ -141,6 +141,8 @@ export async function makeEnc0File(file, password) {
         salt,
         encryptedBytes
     );
+
+    return new File([enc0Bytes], file.name + ".enc0");
 }
 
 // Decrypts an enc0 file with a password, returning the decrypted file

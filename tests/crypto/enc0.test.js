@@ -1,5 +1,6 @@
 import {expect, test, vi} from 'vitest'
 import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey, encryptBytes, decryptBytes} from './src/crypto/enc0.js'
+import { decryptEnc0File, makeEnc0File } from '../../src/crypto/enc0.js'
 
 // ====================
 // numberToBytesBE
@@ -261,6 +262,60 @@ import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey, encryptB
 }
 
 // ====================
+// makeEnc0File
+// these are integration tests, since they use the Web Crypto API, which can be affected by the environment
+// ====================
+{
+    test('makeEnc0File returns a File', async () => {
+        const file = new File([new Uint8Array(50)], 'file.enc0')
+
+        const result = await makeEnc0File(file, 'password')
+        expect(result).toBeInstanceOf(File)
+    })
+
+    test('makeEnc0File adds the magic bytes to the beginning of the file', async () => {
+        const file = new File([new Uint8Array(50)], 'file.enc0')
+
+        // Magic bytes are "ENC0" as ASCII
+        const result = await makeEnc0File(file, 'password')
+
+        const bytes = new Uint8Array(await result.arrayBuffer())
+
+        expect(bytes.slice(0, 4)).toEqual(new Uint8Array([0x45, 0x4E, 0x43, 0x30]))
+    })
+
+    test('makeEnc0File adds the version number to the beginning of the file', async () => {
+        const file = new File([new Uint8Array(50)], 'file.enc0')
+
+        // Version number is 0x01
+        const result = await makeEnc0File(file, 'password')
+
+        const bytes = new Uint8Array(await result.arrayBuffer())
+
+        expect(bytes[4]).toBe(1)
+    })
+
+    test('makeEnc0File encodes the IV and salt correctly', async () => {
+        // Test by trying to decrypt the file
+        const file = new File([new Uint8Array(50)], 'file.enc0')
+
+        const encryptedFile = await makeEnc0File(file, 'password')
+
+        const bytes = new Uint8Array(await encryptedFile.arrayBuffer())
+
+        // Read the IV and salt from the file1
+        const ivLength = bytesToNumberBE(bytes.slice(5, 7))
+        const saltLength = bytesToNumberBE(bytes.slice(7, 9))
+
+        const iv = bytes.slice(9, 9 + ivLength)
+        const salt = bytes.slice(9 + ivLength, 9 + ivLength + saltLength)
+
+        // Decryption should not throw an error
+        await decryptBytes(bytes.slice(9 + ivLength + saltLength), iv, salt, 'password')
+    })
+}
+
+// ====================
 // Unassociated tests
 // ====================
 {
@@ -273,5 +328,29 @@ import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey, encryptB
         const decryptedBytes = await decryptBytes(encryptedBytes, iv, salt, password)
 
         expect(decryptedBytes).toEqual(message)
+    })
+
+    test('creates and decrypts an enc0 file with the same bytes', async () => {
+        const inputFile = new File([new Uint8Array([0x12, 0x34, 0x56, 0x78])], 'file.txt')
+
+        const encryptedFile = await makeEnc0File(inputFile, 'password')
+
+        const decryptedFile = await decryptEnc0File(encryptedFile, 'password')
+
+        // The bytes should be the same
+        const decryptedBytes = new Uint8Array(await decryptedFile.arrayBuffer())
+
+        expect(decryptedBytes).toEqual(new Uint8Array([0x12, 0x34, 0x56, 0x78]))
+     })
+
+    test('creates and decrypts an enc0 file with the same name', async () => {
+        const inputFile = new File([new Uint8Array([0x12, 0x34, 0x56, 0x78])], 'file.txt')
+
+        const encryptedFile = await makeEnc0File(inputFile, 'password')
+
+        const decryptedFile = await decryptEnc0File(encryptedFile, 'password')
+
+        // The name should be the same
+        expect(decryptedFile.name).toBe('file.txt')
     })
 }
