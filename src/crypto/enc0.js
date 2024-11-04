@@ -66,7 +66,7 @@ export async function deriveKey(password, salt) {
 }
 
 // Encrypts a Uint8Array with a password, returning the encrypted bytes, IV, and salt
-async function encryptBytes(bytes, password) {
+export async function encryptBytes(bytes, password) {
     const iv = crypto.getRandomValues(new Uint8Array(12)); // 12 bytes for IV
     const salt = crypto.getRandomValues(new Uint8Array(16)); // 16 bytes for salt
     const key = await deriveKey(password, salt);
@@ -83,7 +83,7 @@ async function encryptBytes(bytes, password) {
 }
 
 // Decrypts a Uint8Array with a password, returning the decrypted bytes
-async function decryptBytes(encryptedBytes, iv, salt, password) {
+export async function decryptBytes(encryptedBytes, iv, salt, password) {
     const key = await deriveKey(password, salt);
     const decryptedBuffer = await crypto.subtle.decrypt(
         {

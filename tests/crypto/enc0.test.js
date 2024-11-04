@@ -1,5 +1,5 @@
 import {expect, test, vi} from 'vitest'
-import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey} from './src/crypto/enc0.js'
+import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey, encryptBytes, decryptBytes} from './src/crypto/enc0.js'
 
 // ====================
 // numberToBytesBE
@@ -30,7 +30,7 @@ import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey} from './
         expect(result).toEqual(new Uint8Array([0, 0]))
     })
 
-    test('numbertToBytesBE truncates the number to fit the byte length', () => {
+    test('numberToBytesBE truncates the number to fit the byte length', () => {
         const result = numberToBytesBE(0x123456, 2)
         expect(result).toEqual(new Uint8Array([0x34, 0x56]))
     })
@@ -165,4 +165,113 @@ import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey} from './
         // Restore the original function
         global.crypto.subtle.deriveKey = original
     });
+}
+
+// ====================
+// encryptBytes
+// these are integration tests, since they use the Web Crypto API, which can be affected by the environment
+// ====================
+{
+    test('encryptBytes returns an object with the correct keys', async () => {
+        const result = await encryptBytes(new Uint8Array(), 'password')
+        expect(result).toHaveProperty('encryptedBytes')
+        expect(result).toHaveProperty('iv')
+        expect(result).toHaveProperty('salt')
+    })
+
+    test('encryptBytes returns an object with Uint8Array values', async () => {
+        const result = await encryptBytes(new Uint8Array(), 'password')
+        expect(result.encryptedBytes).toBeInstanceOf(Uint8Array)
+        expect(result.iv).toBeInstanceOf(Uint8Array)
+        expect(result.salt).toBeInstanceOf(Uint8Array)
+    })
+
+    test('encryptBytes returns a 12 byte initialization vector', async () => {
+        const result = await encryptBytes(new Uint8Array(), 'password')
+        expect(result.iv.length).toBe(12)
+    })
+
+    test('encryptBytes returns a 16 byte salt', async () => {
+        const result = await encryptBytes(new Uint8Array(), 'password')
+        expect(result.salt.length).toBe(16)
+    })
+
+    test('encryptBytes calls crypto.subtle.encrypt with the correct parameters', async () => {
+        // Mock the global crypto.subtle.encrypt function
+        const original = global.crypto.subtle.encrypt
+
+        global.crypto.subtle.encrypt = vi.fn().mockResolvedValue(null)
+
+        await encryptBytes(new Uint8Array(), 'password')
+
+        expect(global.crypto.subtle.encrypt).toHaveBeenCalledWith(
+            {
+                name: "AES-GCM",
+                iv: expect.anything()
+            },
+            expect.anything(),
+            expect.anything()
+        )
+
+        // Restore the original function
+        global.crypto.subtle.encrypt = original
+    })
+}
+
+// ====================
+// decryptBytes
+// these are integration tests, since they use the Web Crypto API, which can be affected by the environment
+// ====================
+{
+    test('decryptBytes returns a Uint8Array', async () => {
+        // Mock the global crypto.subtle.decrypt function
+        const original = global.crypto.subtle.decrypt
+
+        global.crypto.subtle.decrypt = vi.fn().mockResolvedValue(new ArrayBuffer(50))
+
+        const result = await decryptBytes(new Uint8Array(50), new Uint8Array(12), new Uint8Array(16), 'password')
+        expect(result).toBeInstanceOf(Uint8Array)
+    
+        // Restore the original function
+        global.crypto.subtle.decrypt = original
+    })
+
+    test('decryptBytes calls crypto.subtle.decrypt with the correct parameters', async () => {
+        // Mock the global crypto.subtle.decrypt function
+        const original = global.crypto.subtle.decrypt
+
+        global.crypto.subtle.decrypt = vi.fn().mockResolvedValue(new ArrayBuffer(50))
+
+        const iv = new Uint8Array(12)
+
+        await decryptBytes(new Uint8Array(50), iv, new Uint8Array(16), 'password')
+
+        expect(global.crypto.subtle.decrypt).toHaveBeenCalledWith(
+            {
+                name: "AES-GCM",
+                iv: iv
+            },
+            expect.anything(),
+            expect.anything()
+        )
+
+        // Restore the original function
+        global.crypto.subtle.decrypt = original
+    })
+}
+
+// ====================
+// Unassociated tests
+// ====================
+{
+    // Integration test, can be affected by the environment
+    test('encrypts and decrypts a message', async () => {
+        const message = new Uint8Array([0x12, 0x34, 0x56, 0x78])
+        const password = 'password'
+
+        const {encryptedBytes, iv, salt} = await encryptBytes(message, password)
+        const decryptedBytes = await decryptBytes(encryptedBytes, iv, salt, password)
+
+        expect(decryptedBytes).toEqual(message)
+    })
 }
