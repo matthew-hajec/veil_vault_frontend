@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import DecryptionWidget from './components/DecryptionWidget'
+import DecryptionWidget from './components/widgets/DecryptionWidget'
+import EncryptionWidget from './components/widgets/EncryptionWidget';
 
 function App() {
+    const [file, setFile] = useState(undefined)
+
     return (
         <div>
-            <DecryptionWidget />
+            <input
+                type='file'
+                onChange={e => setFile(e.target.files[0])}
+            ></input>
+            <DecryptionWidget file={file} />
+            <EncryptionWidget file={file} />
         </div>
     );
 }
