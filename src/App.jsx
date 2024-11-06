@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import EncryptionWindow from './components/EncryptionWindow'
+import DecryptionWidget from './components/DecryptionWidget'
 
 function App() {
     return (
         <div>
-            <EncryptionWindow />
+            <DecryptionWidget />
         </div>
     );
 }
