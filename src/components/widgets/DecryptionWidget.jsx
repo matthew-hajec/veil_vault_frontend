@@ -72,16 +72,14 @@ export default function DecryptionWidget({ file }) {
             <Button
                 onClick={handleDecrypt}
                 isLoading={isDecrypting}
-                className={`w-full bg-blue-500 text-white transition 
-                    ${isDecrypting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
-            >
+                className={'w-full bg-blue-500 text-white'}>
                 Decrypt
             </Button>
 
             {fileURL && (
                 <Button
                     onClick={downloadFile}
-                    className='w-full mt-2 bg-green-500 text-white transition hover:bg-green-600'
+                    className='w-full mt-2 bg-green-500 text-white'
                 >
                     Download
                 </Button>
