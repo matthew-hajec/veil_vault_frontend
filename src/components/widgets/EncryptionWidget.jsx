@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../Button';
+import Button from '../common/Button';
 import { uploadFile } from '../../api/api';
 import { useAuth0 } from '@auth0/auth0-react';
 
