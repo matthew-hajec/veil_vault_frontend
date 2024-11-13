@@ -14,7 +14,7 @@ createRoot(document.getElementById('root')).render(
       authorizationParams={{
         redirect_uri: window.location.origin,
         audience: 'https://api.veilvault.com',
-        scope: 'upload:file',
+        scope: 'upload:file openid profile email',
       }}>
     <App />
     </Auth0Provider>
