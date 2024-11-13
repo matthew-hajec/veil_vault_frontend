@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Button from '../common/Button'
-import { decryptEnc0File } from '../../crypto/enc0'
+import { decryptEnc0File } from '../../lib/api/crypto/enc0'
 
 export default function DecryptionWidget({ file }) {
     const [password, setPassword] = useState('')
