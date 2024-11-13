@@ -10,9 +10,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Auth0Provider
       domain="dev-ypl7rca85niwqbou.us.auth0.com"
-      clientId='F7yzmvQE2cZhAW2pCrMkk3jRn3iveR3y'
+      clientId='UqMSfQzORr4q9RDgQO62MvXfhcjXJNim'
       authorizationParams={{
-        redirect_uri: window.location.origin
+        redirect_uri: window.location.origin,
+        audience: 'https://api.veilvault.com',
+        scope: 'upload:file',
       }}>
     <App />
     </Auth0Provider>
