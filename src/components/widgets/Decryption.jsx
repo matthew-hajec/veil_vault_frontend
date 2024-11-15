@@ -1,48 +1,46 @@
 import React, { useState } from 'react'
 import Button from '../common/Button'
-import { decryptEnc0File } from '../../lib/api/crypto/enc0'
+import { downloadFile } from '../../lib/api/api'
+import { useAuth0 } from '@auth0/auth0-react'
 
-const DecryptionWidget = ({ file }) => {
+const DecryptionWidget = ({ id }) => {
     const [password, setPassword] = useState('')
-    const [fileURL, setFileURL] = useState(null)
     const [unencryptedFile, setUnencryptedFile] = useState(null)
     const [errorMessage, setErrorMessage] = useState('')
-    const [isDecrypting, setIsDecrypting] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const { getAccessTokenSilently } = useAuth0()
 
-    const handleDecrypt = async () => {
-        setErrorMessage('')
-        setFileURL(null)
-        setUnencryptedFile(null)
-        
-        if (!file) {
-            setErrorMessage('No file selected for decryption.')
-            return
-        }
+    const handleDownload = async () => {
         if (!password) {
             setErrorMessage('Password required to decrypt.')
             return
         }
 
-        setIsDecrypting(true)
-        
+        setLoading(true)
+
         try {
-            const decryptedFile = await decryptEnc0File(file, password)
-            const url = URL.createObjectURL(decryptedFile)
-            setFileURL(url)
-            setUnencryptedFile(decryptedFile)
+            const token = await getAccessTokenSilently({
+                audience: 'https://api.veilvault.com',
+                scope: 'download:file'
+            })
+            const file = await downloadFile(id, password, token)
+            setUnencryptedFile(file)
+            setErrorMessage('')
         } catch (error) {
-            setErrorMessage(error.message || 'Decryption Failed.')
+            setErrorMessage('File download failed: ' + error.message)
         } finally {
-            setIsDecrypting(false)
+            setLoading(false)
         }
     }
 
-    const downloadFile = () => {
-        if(!fileURL || !unencryptedFile) {
+    const clientDownloadFile = () => {
+        if(!unencryptedFile) {
             // Should never happen because the button should not be visible unless there is a file
             setErrorMessage('The file is not available, refresh and try again.')
             return
         }
+
+        const fileURL = URL.createObjectURL(unencryptedFile)
         
         // Create an a tag with the
         const a = document.createElement('a')
@@ -54,7 +52,7 @@ const DecryptionWidget = ({ file }) => {
     }
 
     return (
-        <div className="max-w-md mx-auto p-2 bg-white rounded-sm shadow border border-gray-200">
+        <div className="max-w">
             <h2 className="text-sm font-semibold text-gray-800 mb-2">Decrypt File</h2>
 
             <input
@@ -70,15 +68,15 @@ const DecryptionWidget = ({ file }) => {
             )}
 
             <Button
-                onClick={handleDecrypt}
-                isLoading={isDecrypting}
+                onClick={handleDownload}
+                isLoading={loading}
                 className={'w-full bg-blue-500 text-white'}>
-                Decrypt
+                Download and Decrypt
             </Button>
 
-            {fileURL && (
+            {unencryptedFile && (
                 <Button
-                    onClick={downloadFile}
+                    onClick={clientDownloadFile}
                     className='w-full mt-2 bg-green-500 text-white'
                 >
                     Download

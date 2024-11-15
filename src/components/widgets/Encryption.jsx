@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '../common/Button';
 import { uploadFile } from '../../lib/api/api';
 import { useAuth0 } from '@auth0/auth0-react';
+import { makeEnc0File } from '../../lib/api/crypto/enc0';
 
 const EncryptionWidget = ({ file, onUpload }) => {
     const [password, setPassword] = useState('');
@@ -27,7 +28,8 @@ const EncryptionWidget = ({ file, onUpload }) => {
                 audience: 'https://api.veilvault.com',
                 scope: 'upload:file'
             });
-            const data = await uploadFile(file, token);
+            const encryptedFile = await makeEnc0File(file, password);
+            const data = await uploadFile(encryptedFile, token);
             onUpload(data.id);
             setErrorMessage('');
         } catch (error) {

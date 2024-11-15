@@ -1,5 +1,9 @@
+import { decryptEnc0File } from './crypto/enc0';
+
+const baseUrl = 'http://localhost:4000';
+
 export async function uploadFile(file, token) {
-    const url = 'http://localhost:4000/file/upload';
+    const url = `${baseUrl}/file/upload`;
     const formData = new FormData();
     formData.append('file', file);
 
@@ -23,4 +27,30 @@ export async function uploadFile(file, token) {
     }
 
     return data;
+}
+
+export async function downloadFile(id, password, token) {
+    const linkUrl = `${baseUrl}/file/url/${id}`;
+    const response = await fetch(linkUrl, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to get download link');
+    }
+
+    const { url } = await response.json();
+
+    const downloadResponse = await fetch(url)
+
+    if (!downloadResponse.ok) {
+        throw new Error('Failed to download file');
+    }
+
+    const file = await downloadResponse.blob();
+    const decryptedFile = await decryptEnc0File(file, password);
+
+    return decryptedFile;
 }
