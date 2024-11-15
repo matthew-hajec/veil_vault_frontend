@@ -37,12 +37,6 @@ const Header = () => {
               Features
             </Link>
             <Link
-              to="/pricing"
-              className="text-sm text-gray-600 hover:text-blue-500 transition"
-            >
-              Pricing
-            </Link>
-            <Link
               to="/contact"
               className="text-sm text-gray-600 hover:text-blue-500 transition"
             >
