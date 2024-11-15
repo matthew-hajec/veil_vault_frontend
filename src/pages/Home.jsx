@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 
-const Home = () => {
+const HomePage = () => {
     const { user, isAuthenticated } = useAuth0();
 
     return (
@@ -16,4 +16,4 @@ const Home = () => {
 
 }
 
-export default Home;
+export default HomePage;
