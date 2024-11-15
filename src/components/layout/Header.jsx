@@ -42,6 +42,15 @@ const Header = () => {
             >
               Contact
             </Link>
+            {/* Authenticated Routes */}
+            {isAuthenticated && (
+              <Link
+                to="/upload"
+                className="text-sm text-gray-600 hover:text-blue-500 transition"
+              >
+                Upload
+              </Link>
+            )}
           </nav>
 
           {/* Authentication Buttons */}
