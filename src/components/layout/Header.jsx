@@ -13,11 +13,11 @@ const Header = () => {
         {/* Logo and App Name */}
         <div className="flex items-center space-x-2">
           <img
-            src="/path-to-your-logo.png"
+            src="/logo.svg"
             alt="App Logo"
             className="h-8 w-8"
           />
-          <span className="text-xl font-semibold text-gray-800">YourAppName</span>
+          <span className="text-xl font-semibold text-gray-800">Veil Vault</span>
         </div>
 
         {/* Desktop Navigation Links and Auth Buttons */}
