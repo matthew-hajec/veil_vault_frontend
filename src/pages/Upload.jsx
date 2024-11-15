@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import EncryptionWidget from '../components/widgets/Encryption';
+import Card from '../components/common/Card';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate, useNavigate } from 'react-router-dom';
+
 
 const UploadPage = () => {
   const { isAuthenticated } = useAuth0();
@@ -39,13 +41,13 @@ const UploadPage = () => {
         </section>
 
         {/* EncryptionWidget Component */}
-        <section className="my-8 p-4 bg-white rounded-sm shadow-md border border-gray-200">
+        <Card>
           {/* Pass the selected file to EncryptionWidget */}
           <EncryptionWidget file={selectedFile} onUpload={onUpload}/>
-        </section>
+        </Card>
 
         {/* How It Works Section */}
-        <section className="my-8 p-4 bg-white rounded-sm shadow-md border border-gray-200">
+        <Card>
           <h2 className="text-lg font-semibold text-gray-800 mb-2">How It Works</h2>
           <p className="text-gray-600 text-sm mb-4">
             When you upload a file, it is encrypted using the password you provide. After uploading, 
@@ -62,7 +64,7 @@ const UploadPage = () => {
               Use a strong, unique password to maximize security.
             </li>
           </ul>
-        </section>
+        </Card>
       </main>
     </div>
   );

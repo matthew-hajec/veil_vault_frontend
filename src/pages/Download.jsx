@@ -1,6 +1,8 @@
 import React from 'react';
 import DecryptionWidget from '../components/widgets/Decryption';
+import Card from '../components/common/Card';
 import { useParams } from 'react-router-dom';
+
 
 const DownloadPage = () => {
   const { id } = useParams();
@@ -17,12 +19,12 @@ const DownloadPage = () => {
         </section>
 
         {/* DecryptionWidget Component */}
-        <section className="my-8 p-4 bg-white rounded-sm shadow-md border border-gray-200">
+        <Card>
           <DecryptionWidget id={id} />
-        </section>
+        </Card>
 
         {/* How It Works Section */}
-        <section className="my-8 p-4 bg-white rounded-sm shadow-md border border-gray-200">
+        <Card>
           <h2 className="text-lg font-semibold text-gray-800 mb-2">How It Works</h2>
           <p className="text-gray-600 text-sm mb-4">
             To access your file, please enter the password used during encryption. Without the correct password, the file cannot be decrypted.
@@ -41,7 +43,7 @@ const DownloadPage = () => {
               We do not store your password or decrypted files on our servers, ensuring your data remains private.
             </li>
           </ul>
-        </section>
+        </Card>
       </main>
     </div>
   );
