@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '../common/Button';
 import { useAuth0 } from '@auth0/auth0-react';
 
-export default function Header() {
+const Header = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -165,3 +165,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;
