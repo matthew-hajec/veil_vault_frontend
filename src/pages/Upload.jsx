@@ -32,7 +32,7 @@ const UploadPage = () => {
         </section>
 
         {/* File Upload Input */}
-        <section className="my-4">
+        <section className="mb-6">
           <input
             type="file"
             onChange={e => setSelectedFile(e.target.files[0])}
@@ -41,7 +41,7 @@ const UploadPage = () => {
         </section>
 
         {/* EncryptionWidget Component */}
-        <Card>
+        <Card className="mb-6">
           {/* Pass the selected file to EncryptionWidget */}
           <EncryptionWidget file={selectedFile} onUpload={onUpload}/>
         </Card>

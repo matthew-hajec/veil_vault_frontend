@@ -19,7 +19,7 @@ const DownloadPage = () => {
         </section>
 
         {/* DecryptionWidget Component */}
-        <Card>
+        <Card className="mb-6">
           <DecryptionWidget id={id} />
         </Card>
 
