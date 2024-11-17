@@ -38,7 +38,7 @@ export async function downloadFile(id, password, token) {
     });
 
     if (!response.ok) {
-        throw new Error('Failed to get download link');
+        throw new Error('Failed to get download link.');
     }
 
     const { url } = await response.json();
@@ -46,11 +46,15 @@ export async function downloadFile(id, password, token) {
     const downloadResponse = await fetch(url)
 
     if (!downloadResponse.ok) {
-        throw new Error('Failed to download file');
+        throw new Error('Failed to download file.');
     }
 
     const file = await downloadResponse.blob();
-    const decryptedFile = await decryptEnc0File(file, password);
 
-    return decryptedFile;
+    try {    
+        const decryptedFile = await decryptEnc0File(file, password);
+        return decryptedFile;
+    } catch (error) {
+        throw new Error('Failed to decrypt file.');
+    }
 }
