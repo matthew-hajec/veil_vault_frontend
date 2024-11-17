@@ -142,7 +142,7 @@ export async function makeEnc0File(file, password) {
         encryptedBytes
     );
 
-    return new File([enc0Bytes], file.name + ".enc0");
+    return new File([enc0Bytes], "file.enc0");
 }
 
 // Decrypts an enc0 file with a password, returning the decrypted file
