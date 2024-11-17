@@ -15,6 +15,12 @@ export async function uploadFile(file, token) {
         body: formData
     });
 
+    // Handle 400 errors
+    if (response.status === 400) {
+        const data = await response.json();
+        throw new Error(data.error);
+    }
+
     if (!response.ok) {
         throw new Error('File upload failed');
     }
