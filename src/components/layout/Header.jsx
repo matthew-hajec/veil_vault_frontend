@@ -30,18 +30,6 @@ const Header = () => {
             >
               Home
             </Link>
-            <Link
-              to="/features"
-              className="text-sm text-gray-600 hover:text-blue-500 transition"
-            >
-              Features
-            </Link>
-            <Link
-              to="/contact"
-              className="text-sm text-gray-600 hover:text-blue-500 transition"
-            >
-              Contact
-            </Link>
             {/* Authenticated Routes */}
             {isAuthenticated && (
               <Link
