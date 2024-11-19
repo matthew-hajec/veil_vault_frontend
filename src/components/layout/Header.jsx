@@ -32,12 +32,20 @@ const Header = () => {
             </Link>
             {/* Authenticated Routes */}
             {isAuthenticated && (
-              <Link
-                to="/upload"
-                className="text-sm text-gray-600 hover:text-blue-500 transition"
-              >
-                Upload
-              </Link>
+              <>
+                <Link
+                  to="/dashboard"
+                  className="text-sm text-gray-600 hover:text-blue-500 transition"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="/upload"
+                  className="text-sm text-gray-600 hover:text-blue-500 transition"
+                >
+                  Upload
+                </Link>
+              </>
             )}
           </nav>
 
