@@ -1,4 +1,4 @@
-import { decryptEnc0File } from './crypto/enc0';
+import { decryptEnc0File } from '../crypto/enc0';
 
 const baseUrl = 'http://localhost:4000';
 

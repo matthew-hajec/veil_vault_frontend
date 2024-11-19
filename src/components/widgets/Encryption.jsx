@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../common/Button';
 import { uploadFile } from '../../lib/api/api';
 import { useAuth0 } from '@auth0/auth0-react';
-import { makeEnc0File } from '../../lib/api/crypto/enc0';
+import { makeEnc0File } from '../../lib/crypto/enc0';
 
 const EncryptionWidget = ({ file, onUpload }) => {
     const [password, setPassword] = useState('');

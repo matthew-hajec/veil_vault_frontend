@@ -1,6 +1,6 @@
 import {expect, test, vi} from 'vitest'
-import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey, encryptBytes, decryptBytes} from './src/crypto/enc0.js'
-import { decryptEnc0File, makeEnc0File } from '../../src/crypto/enc0.js'
+import {numberToBytesBE, bytesToNumberBE, concatUint8Arrays, deriveKey, encryptBytes, decryptBytes} from '../../src/lib/crypto/enc0.js'
+import { decryptEnc0File, makeEnc0File } from '../../src/lib/crypto/enc0.js'
 
 // ====================
 // numberToBytesBE
