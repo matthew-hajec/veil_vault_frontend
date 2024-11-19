@@ -8,7 +8,6 @@ const DecryptionWidget = ({ id }) => {
     const [unencryptedFile, setUnencryptedFile] = useState(null)
     const [errorMessage, setErrorMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const { getAccessTokenSilently } = useAuth0()
 
     const handleDownload = async () => {
         if (!password) {
@@ -19,11 +18,7 @@ const DecryptionWidget = ({ id }) => {
         setLoading(true)
 
         try {
-            const token = await getAccessTokenSilently({
-                audience: 'https://api.veilvault.com',
-                scope: 'download:file'
-            })
-            const file = await downloadFile(id, password, token)
+            const file = await downloadFile(id, password)
             setUnencryptedFile(file)
             setErrorMessage('')
         } catch (error) {

@@ -37,11 +37,7 @@ export async function uploadFile(file, token) {
 
 export async function downloadFile(id, password, token) {
     const linkUrl = `${baseUrl}/file/url/${id}`;
-    const response = await fetch(linkUrl, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
+    const response = await fetch(linkUrl);
 
     if (!response.ok) {
         throw new Error('Failed to get download link.');
@@ -65,13 +61,9 @@ export async function downloadFile(id, password, token) {
     }
 }
 
-export async function fetchFileSize(id, token) {
+export async function fetchFileSize(id) {
     const url = `${baseUrl}/file/size/${id}`;
-    const response = await fetch(url, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
+    const response = await fetch(url);
 
     // Handle 404 errors
     if (response.status === 404) {
@@ -79,7 +71,7 @@ export async function fetchFileSize(id, token) {
     }
 
     if (!response.ok) {
-        throw new Error('Failed to connect to file service.');
+        throw new Error('Server Error.');
     }
 
     const data = await response.json();

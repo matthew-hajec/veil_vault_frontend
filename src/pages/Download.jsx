@@ -7,17 +7,12 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const DownloadPage = () => {
   const { id } = useParams();
-  const { getAccessTokenSilently } = useAuth0();
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     (async () => {
       try {
-        const token = await getAccessTokenSilently({
-          audience: 'https://api.veilvault.com',
-          scope: 'download:file'
-        });
-        await fetchFileSize(id, token);
+        await fetchFileSize(id);
       } catch (error) {
         if (error.message) {
           setErrorMessage(error.message);
