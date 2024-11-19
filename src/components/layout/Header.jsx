@@ -7,16 +7,35 @@ const Header = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navLinks = [
+    { to: "/", label: "Home", auth: false },
+    { to: "/dashboard", label: "Dashboard", auth: true },
+    { to: "/upload", label: "Upload", auth: true },
+  ];
+
+  const renderNavLinks = (className, onClick) =>
+    navLinks.map((link) => {
+      if (link.auth && !isAuthenticated) {
+        return null;
+      }
+      return (
+        <Link
+          key={link.to}
+          to={link.to}
+          className={className}
+          onClick={onClick}
+        >
+          {link.label}
+        </Link>
+      );
+    });
+
   return (
     <header className="bg-white shadow border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
         {/* Logo and App Name */}
         <div className="flex items-center space-x-2">
-          <img
-            src="/logo.svg"
-            alt="App Logo"
-            className="h-8 w-8"
-          />
+          <img src="/logo.svg" alt="App Logo" className="h-8 w-8" />
           <span className="text-xl font-semibold text-gray-800">Veil Vault</span>
         </div>
 
@@ -24,29 +43,7 @@ const Header = () => {
         <div className="hidden md:flex items-center space-x-4">
           {/* Navigation Links */}
           <nav className="flex space-x-4">
-            <Link
-              to="/"
-              className="text-sm text-gray-600 hover:text-blue-500 transition"
-            >
-              Home
-            </Link>
-            {/* Authenticated Routes */}
-            {isAuthenticated && (
-              <>
-                <Link
-                  to="/dashboard"
-                  className="text-sm text-gray-600 hover:text-blue-500 transition"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/upload"
-                  className="text-sm text-gray-600 hover:text-blue-500 transition"
-                >
-                  Upload
-                </Link>
-              </>
-            )}
+            {renderNavLinks("text-sm text-gray-600 hover:text-blue-500 transition")}
           </nav>
 
           {/* Authentication Buttons */}
@@ -107,34 +104,10 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden">
           <nav className="px-4 pt-2 pb-4 space-y-1">
-            <Link
-              to="/"
-              className="block text-sm text-gray-600 hover:text-blue-500 transition"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              to="/features"
-              className="block text-sm text-gray-600 hover:text-blue-500 transition"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Features
-            </Link>
-            <Link
-              to="/pricing"
-              className="block text-sm text-gray-600 hover:text-blue-500 transition"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Pricing
-            </Link>
-            <Link
-              to="/contact"
-              className="block text-sm text-gray-600 hover:text-blue-500 transition"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-            </Link>
+            {renderNavLinks(
+              "block text-sm text-gray-600 hover:text-blue-500 transition",
+              () => setIsMenuOpen(false)
+            )}
             <div className="mt-2">
               {isAuthenticated ? (
                 <Button
@@ -163,6 +136,6 @@ const Header = () => {
       )}
     </header>
   );
-}
+};
 
 export default Header;
