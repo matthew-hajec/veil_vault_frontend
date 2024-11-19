@@ -82,3 +82,25 @@ export async function fetchFileSize(id) {
 
     return data.size;
 }
+
+export async function getDashboardInfo(token) {
+    const url = `${baseUrl}/user/dashboard`;
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    if (!response.ok) {
+        throw new Error('Failed to get dashboard info.');
+    }
+
+    const data = await response.json();
+
+    if (!data || !data.user || !data.files) {
+        throw new Error('Invalid response from server.');
+    }
+
+    return data;
+}
+  
