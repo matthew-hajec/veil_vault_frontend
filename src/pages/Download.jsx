@@ -1,11 +1,33 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import DecryptionWidget from '../components/widgets/Decryption';
 import Card from '../components/common/Card';
 import { useParams } from 'react-router-dom';
-
+import { fetchFileSize } from '../lib/api/api';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const DownloadPage = () => {
   const { id } = useParams();
+  const { getAccessTokenSilently } = useAuth0();
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const token = await getAccessTokenSilently({
+          audience: 'https://api.veilvault.com',
+          scope: 'download:file'
+        });
+        await fetchFileSize(id, token);
+      } catch (error) {
+        if (error.message) {
+          setErrorMessage(error.message);
+        } else {
+          setErrorMessage('An error occurred. Try again later.');
+        }
+      }
+    })()
+  }, [id]);
+    
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -19,9 +41,18 @@ const DownloadPage = () => {
         </section>
 
         {/* DecryptionWidget Component */}
-        <Card className="mb-6">
-          <DecryptionWidget id={id} />
-        </Card>
+        {
+          errorMessage ? (
+            <div className="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <strong className="font-bold">Error: </strong>
+              <span className="block sm:inline">{errorMessage}</span>
+            </div>
+          ) : (
+            <Card className="mb-6">
+              <DecryptionWidget id={id} />
+            </Card>
+          )
+        }
 
         {/* How It Works Section */}
         <Card>

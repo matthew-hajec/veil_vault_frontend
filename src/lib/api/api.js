@@ -64,3 +64,29 @@ export async function downloadFile(id, password, token) {
         throw new Error('Failed to decrypt file.');
     }
 }
+
+export async function fetchFileSize(id, token) {
+    const url = `${baseUrl}/file/size/${id}`;
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    // Handle 404 errors
+    if (response.status === 404) {
+        throw new Error('File not found.');
+    }
+
+    if (!response.ok) {
+        throw new Error('Failed to connect to file service.');
+    }
+
+    const data = await response.json();
+
+    if (!data || !data.size) {
+        throw new Error('Invalid response from server.');
+    }
+
+    return data.size;
+}
