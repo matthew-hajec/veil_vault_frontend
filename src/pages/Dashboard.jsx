@@ -23,7 +23,10 @@ const DashboardPage = () => {
         const data = await getDashboardInfo(token);
         setDashboardInfo(data);
       } catch (err) {
-        setError(err.message || 'An error occurred while fetching dashboard information.');
+        setError(
+          err.message ||
+            'An error occurred while fetching dashboard information.'
+        );
       } finally {
         setLoading(false);
       }
@@ -51,14 +54,22 @@ const DashboardPage = () => {
       <main className="max-w-7xl mx-auto px-4 py-6">
         {/* Loading State */}
         {loading && (
-          <div className="mb-6 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
-            <span className="block sm:inline">Loading dashboard information...</span>
+          <div
+            className="mb-6 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
+            <span className="block sm:inline">
+              Loading dashboard information...
+            </span>
           </div>
         )}
 
         {/* Error State */}
         {error && (
-          <div className="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <div
+            className="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
             <strong className="font-bold">Error: </strong>
             <span className="block sm:inline">{error}</span>
           </div>
@@ -69,26 +80,36 @@ const DashboardPage = () => {
           <div className="space-y-6">
             {/* User Information */}
             <Card className="p-6">
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">User Information</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                User Information
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <p className="text-gray-600">Max File Size:</p>
-                  <p className="text-gray-800 font-medium">{formatBytesToMB(dashboardInfo.user.maxFileSizeBytes)} MB</p>
+                  <p className="text-gray-800 font-medium">
+                    {formatBytesToMB(dashboardInfo.user.maxFileSizeBytes)} MB
+                  </p>
                 </div>
                 <div>
                   <p className="text-gray-600">Max Uploads/Month:</p>
-                  <p className="text-gray-800 font-medium">{dashboardInfo.user.maxUploadsPerMonth}</p>
+                  <p className="text-gray-800 font-medium">
+                    {dashboardInfo.user.maxUploadsPerMonth}
+                  </p>
                 </div>
                 <div>
                   <p className="text-gray-600">File Retention Period:</p>
-                  <p className="text-gray-800 font-medium">{dashboardInfo.user.fileRetentionPeriodDays} Days</p>
+                  <p className="text-gray-800 font-medium">
+                    {dashboardInfo.user.fileRetentionPeriodDays} Days
+                  </p>
                 </div>
               </div>
             </Card>
 
             {/* Files List */}
             <Card className="p-6">
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Files</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                Your Files
+              </h2>
               {dashboardInfo.files.length === 0 ? (
                 <p className="text-gray-600">You have no uploaded files.</p>
               ) : (
@@ -96,20 +117,31 @@ const DashboardPage = () => {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Upload Date</th>
-                        <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Download</th>
+                        <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
+                          Upload Date
+                        </th>
+                        <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
+                          Download
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {dashboardInfo.files
-                        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                        .sort(
+                          (a, b) =>
+                            new Date(b.createdAt) - new Date(a.createdAt)
+                        )
                         .map((file) => (
                           <tr key={file.blobID}>
                             <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-800">
-                              {new Date(file.createdAt).toLocaleDateString()} {new Date(file.createdAt).toLocaleTimeString()}
+                              {new Date(file.createdAt).toLocaleDateString()}{' '}
+                              {new Date(file.createdAt).toLocaleTimeString()}
                             </td>
                             <td className="px-4 py-2 whitespace-nowrap text-sm text-blue-500">
-                              <a href={`/download/${file.blobID}`} className="hover:underline">
+                              <a
+                                href={`/download/${file.blobID}`}
+                                className="hover:underline"
+                              >
                                 Download
                               </a>
                             </td>

@@ -8,9 +8,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { to: "/", label: "Home", auth: false },
-    { to: "/dashboard", label: "Dashboard", auth: true },
-    { to: "/upload", label: "Upload", auth: true },
+    { to: '/', label: 'Home', auth: false },
+    { to: '/dashboard', label: 'Dashboard', auth: true },
+    { to: '/upload', label: 'Upload', auth: true },
   ];
 
   const renderNavLinks = (className, onClick) =>
@@ -43,7 +43,9 @@ const Header = () => {
         <div className="hidden md:flex items-center space-x-4">
           {/* Navigation Links */}
           <nav className="flex space-x-4">
-            {renderNavLinks("text-sm text-gray-600 hover:text-blue-500 transition")}
+            {renderNavLinks(
+              'text-sm text-gray-600 hover:text-blue-500 transition'
+            )}
           </nav>
 
           {/* Authentication Buttons */}
@@ -105,7 +107,7 @@ const Header = () => {
         <div className="md:hidden">
           <nav className="px-4 pt-2 pb-4 space-y-1">
             {renderNavLinks(
-              "block text-sm text-gray-600 hover:text-blue-500 transition",
+              'block text-sm text-gray-600 hover:text-blue-500 transition',
               () => setIsMenuOpen(false)
             )}
             <div className="mt-2">

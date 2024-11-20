@@ -7,23 +7,23 @@ import DashboardPage from './pages/Dashboard';
 import Header from './components/layout/Header';
 
 const App = () => {
-    const { isLoading } = useAuth0();
+  const { isLoading } = useAuth0();
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-    return (
-        <Router>
-            <Header />
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/upload" element={<UploadPage />} />
-                <Route path="/download/:id" element={<DownloadPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
-            </Routes>
-        </Router>
-    )
-}
+  return (
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/upload" element={<UploadPage />} />
+        <Route path="/download/:id" element={<DownloadPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
