@@ -165,7 +165,7 @@ const HomePage = () => {
                 Ready to Secure Your Files?
             </h2>
             <p className="text-blue-100 text-base mb-8">
-                Experience simple and secure file sharing with Veil Vault.
+                Experience simple and secure file sharing with Cryptalyx.
             </p>
             <Link to="/upload">
                 <Button className="bg-white text-blue-500 px-6 py-3" onClick={loginWithRedirect}>
