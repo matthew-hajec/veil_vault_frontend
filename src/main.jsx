@@ -9,7 +9,7 @@ import App from './App.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Auth0Provider
-      domain="dev-ypl7rca85niwqbou.us.auth0.com"
+      domain="auth.cryptalyx.com"
       clientId='UqMSfQzORr4q9RDgQO62MvXfhcjXJNim'
       authorizationParams={{
         redirect_uri: window.location.origin,
