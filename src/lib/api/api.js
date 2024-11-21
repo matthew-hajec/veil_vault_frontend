@@ -2,41 +2,73 @@ import { decryptEnc0File } from '../crypto/enc0';
 
 const baseUrl = 'http://localhost:4000';
 
-export async function uploadFile(file, token) {
-  const url = `${baseUrl}/file/upload`;
-  const formData = new FormData();
-  formData.append('file', file);
+// export async function uploadFile(file, token) {
+//   const url = `${baseUrl}/file/upload`;
+//   const formData = new FormData();
+//   formData.append('file', file);
 
-  const response = await fetch(url, {
-    method: 'POST',
+//   const response = await fetch(url, {
+//     method: 'POST',
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//     body: formData,
+//   });
+
+//   // Handle 400 errors
+//   if (response.status === 400) {
+//     const data = await response.json();
+//     throw new Error(data.error);
+//   }
+
+//   if (!response.ok) {
+//     throw new Error('File upload failed');
+//   }
+
+//   const data = await response.json();
+
+//   // Validate the response data
+//   if (!data || !data.id) {
+//     throw new Error('Invalid response from server');
+//   }
+
+//   return data;
+// }
+
+export async function uploadFile(file, token) {
+  const linkUrl = `${baseUrl}/file/upload_url`;
+  const response = await fetch(linkUrl, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: formData,
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to get upload URL.');
+  }
+
+  const { id, url } = await response.json();
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const uploadResponse = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/octet-stream",
+    },
+    body: file,
   });
 
-  // Handle 400 errors
-  if (response.status === 400) {
-    const data = await response.json();
-    throw new Error(data.error);
+  if (!uploadResponse.ok) {
+    throw new Error('Failed to upload file.');
   }
 
-  if (!response.ok) {
-    throw new Error('File upload failed');
-  }
-
-  const data = await response.json();
-
-  // Validate the response data
-  if (!data || !data.id) {
-    throw new Error('Invalid response from server');
-  }
-
-  return data;
+  return { id };
 }
 
-export async function downloadFile(id, password, token) {
-  const linkUrl = `${baseUrl}/file/url/${id}`;
+export async function downloadFile(id, password) {
+  const linkUrl = `${baseUrl}/file/download_url/${id}`;
   const response = await fetch(linkUrl);
 
   if (!response.ok) {
