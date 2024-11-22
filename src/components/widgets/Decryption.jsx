@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../common/Button';
 import { downloadFile } from '../../lib/api/api';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const DecryptionWidget = ({ id }) => {
   const [password, setPassword] = useState('');
