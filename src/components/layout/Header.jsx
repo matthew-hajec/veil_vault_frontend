@@ -35,7 +35,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
         {/* Logo and App Name */}
         <div className="flex items-center space-x-2">
-          <img src="/logo.svg" alt="App Logo" className="h-8 w-8" />
+          <img src="/cryptalyx.png" alt="App Logo" className="h-8 w-8" />
           <span className="text-xl font-semibold text-gray-800">Cryptalyx</span>
         </div>
 
