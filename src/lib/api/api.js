@@ -1,6 +1,6 @@
 import { decryptEnc0File } from '../crypto/enc0';
 
-const baseUrl = 'http://localhost:4000';
+const baseUrl = '/api';
 
 export async function uploadFile(file, token) {
   const url = `${baseUrl}/file/upload`;
