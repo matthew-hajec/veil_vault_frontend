@@ -16,19 +16,41 @@ const DisclaimerPage = ({ setDisclaimerAccepted }) => {
           Disclaimer
         </h1>
         <p className="text-gray-700 mb-6">
-          This project is a demonstration of my software development skills and is not intended
-          for real-world use. By using this application:
+          This project is a demonstration of my software development skills and
+          is not intended for real-world use. By using this application, you
+          agree to these terms:
         </p>
-        <ul className="list-disc list-inside text-gray-700 mb-6">
-          <li>No guarantees are made regarding functionality, security, or data protection.</li>
-          <li>Any data provided is used solely at your own risk.</li>
-          <li>This project is for portfolio purposes only and does not represent a real product or service.</li>
+        <ul className="list-disc list-inside text-gray-700 mb-6 space-y-2">
+          <li>
+            <strong>No Guarantees:</strong> The service provides no guarantees
+            regarding functionality, security, data protection, or uptime.
+          </li>
+          <li>
+            <strong>Use at Your Own Risk:</strong> Any data uploaded, encrypted,
+            or shared using this application is done so at your own risk. I am
+            not responsible for any data loss, breaches, or unauthorized access.
+          </li>
+          <li>
+            <strong>Not a Real Product:</strong> This project is for portfolio
+            and demonstrative purposes only and does not represent a real
+            product or service.
+          </li>
+          <li>
+            <strong>No Liability:</strong> I am not liable for any damages,
+            including but not limited to direct, indirect, incidental, or
+            consequential damages arising from the use or inability to use this
+            application.
+          </li>
         </ul>
         <p className="text-gray-700 mb-6">
-          By clicking "Accept," you acknowledge and agree to these terms.
+          By clicking "Accept," you acknowledge that you have read, understood,
+          and agree to be bound by these terms.
         </p>
         <div className="flex justify-center">
-          <Button className="bg-blue-500 text-white px-6 py-3" onClick={handleAccept}>
+          <Button
+            className="bg-blue-500 text-white px-6 py-3"
+            onClick={handleAccept}
+          >
             Accept
           </Button>
         </div>
