@@ -50,9 +50,11 @@ const HomePage = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Feature 1 */}
-            <Card className="flex flex-col items-center text-center p-6">
+            <Card className="flex flex-col items-center justify-center text-center p-6">
               <img
-                src="https://placehold.co/100x100"
+                src="/password-mobile-phone.svg"
+                width="70"
+                height="70"
                 alt="Client-Side Encryption"
                 className="mb-4"
               />
@@ -68,7 +70,9 @@ const HomePage = () => {
             {/* Feature 2 */}
             <Card className="flex flex-col items-center text-center p-6">
               <img
-                src="https://placehold.co/100x100"
+                src="/shield-share.svg"
+                width="70"
+                height="70"
                 alt="Secure Sharing"
                 className="mb-4"
               />
@@ -83,7 +87,9 @@ const HomePage = () => {
             {/* Feature 3 */}
             <Card className="flex flex-col items-center text-center p-6">
               <img
-                src="https://placehold.co/100x100"
+                src="/code.svg"
+                width="70"
+                height="70"
                 alt="Open Source Security"
                 className="mb-4"
               />
@@ -98,7 +104,9 @@ const HomePage = () => {
             {/* Feature 4 */}
             <Card className="flex flex-col items-center text-center p-6">
               <img
-                src="https://placehold.co/100x100"
+                src="user-shield.svg"
+                width="70"
+                height="70"
                 alt="Simple and Intuitive"
                 className="mb-4"
               />
@@ -124,7 +132,9 @@ const HomePage = () => {
             {/* Step 1 */}
             <Card className="flex flex-col items-center text-center">
               <img
-                src="https://placehold.co/100x100"
+                src="/key.svg"
+                width="70"
+                height="70"
                 alt="Encrypt Your File"
                 className="mb-4"
               />
@@ -139,7 +149,9 @@ const HomePage = () => {
             {/* Step 2 */}
             <Card className="flex flex-col items-center text-center">
               <img
-                src="https://placehold.co/100x100"
+                src="/share-2.svg"
+                height="70"
+                width="70"
                 alt="Share Securely"
                 className="mb-4"
               />
@@ -154,7 +166,9 @@ const HomePage = () => {
             {/* Step 3 */}
             <Card className="flex flex-col items-center text-center">
               <img
-                src="https://placehold.co/100x100"
+                src="/download.svg"
+                height="70"
+                width="70"
                 alt="Decrypt and Download"
                 className="mb-4"
               />
