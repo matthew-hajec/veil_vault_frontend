@@ -7,18 +7,20 @@ import DownloadPage from './pages/Download';
 import DashboardPage from './pages/Dashboard';
 import DisclaimerPage from './pages/Disclaimer';
 import Header from './components/layout/Header';
+import Loader from './components/layout/FullPageLoader';
 
 const App = () => {
   const { isLoading } = useAuth0();
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
 
   useEffect(() => {
-    const disclaimerAccepted = localStorage.getItem('disclaimerAccepted') === 'true';
+    const disclaimerAccepted =
+      localStorage.getItem('disclaimerAccepted') === 'true';
     setDisclaimerAccepted(disclaimerAccepted);
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
@@ -26,7 +28,14 @@ const App = () => {
       <Header />
       <Routes>
         {/* Disclaimer route */}
-        {!disclaimerAccepted && <Route path="*" element={<DisclaimerPage setDisclaimerAccepted={setDisclaimerAccepted}/>} />}
+        {!disclaimerAccepted && (
+          <Route
+            path="*"
+            element={
+              <DisclaimerPage setDisclaimerAccepted={setDisclaimerAccepted} />
+            }
+          />
+        )}
         {disclaimerAccepted && (
           <>
             {/* Home route */}
