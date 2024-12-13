@@ -133,8 +133,8 @@ const HomePage = () => {
             <Card className="flex flex-col items-center text-center">
               <img
                 src="/key.svg"
-                width="70"
-                height="70"
+                width="60"
+                height="60"
                 alt="Encrypt Your File"
                 className="mb-4"
               />
@@ -150,8 +150,8 @@ const HomePage = () => {
             <Card className="flex flex-col items-center text-center">
               <img
                 src="/share-2.svg"
-                height="70"
-                width="70"
+                height="60"
+                width="60"
                 alt="Share Securely"
                 className="mb-4"
               />
@@ -167,8 +167,8 @@ const HomePage = () => {
             <Card className="flex flex-col items-center text-center">
               <img
                 src="/download.svg"
-                height="70"
-                width="70"
+                height="60"
+                width="60"
                 alt="Decrypt and Download"
                 className="mb-4"
               />
