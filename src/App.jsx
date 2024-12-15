@@ -6,6 +6,7 @@ import UploadPage from './pages/Upload';
 import DownloadPage from './pages/Download';
 import DashboardPage from './pages/Dashboard';
 import DisclaimerPage from './pages/Disclaimer';
+import NotFoundPage from './pages/NotFound';
 import Header from './components/layout/Header';
 import Loader from './components/layout/FullPageLoader';
 
@@ -46,6 +47,8 @@ const App = () => {
             <Route path="/download/:id" element={<DownloadPage />} />
             {/* Dashboard route */}
             <Route path="/dashboard" element={<DashboardPage />} />
+            {/* 404 route */}
+            <Route path="*" element={<NotFoundPage />} />
           </>
         )}
       </Routes>
