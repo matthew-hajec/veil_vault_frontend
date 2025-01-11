@@ -11,8 +11,17 @@ const HomePage = () => {
     <div className="min-h-screen bg-gray-100">
       {/* Hero Section */}
       <section className="bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 py-16 flex flex-col items-center text-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+        <div className="max-w-5xl mx-auto px-4 py-16 flex flex-col items-center text-center">
+          <div class="w-full flex flex-row items-center justify-center space-x-5">
+          <img
+            src="/cryptalyx.png"
+            alt="Secure file sharing illustration"
+            height="100"
+            width="100"
+          />
+          <h2 class="text-5xl font-bold bg-gradient-to-t from-purple-500 to-blue-400 bg-clip-text text-transparent">Secure Your Files</h2>
+          </div>
+          <h1 className="mt-12 text-3xl font-bold text-gray-800 mb-4">
             Securely Encrypt and Share Your Files
           </h1>
           <p className="text-gray-600 text-base mb-8">
@@ -34,11 +43,6 @@ const HomePage = () => {
               </Button>
             </a>
           </div>
-          <img
-            src="https://placehold.co/600x400"
-            alt="Secure file sharing illustration"
-            className="mt-12 w-full max-w-md"
-          />
         </div>
       </section>
 
