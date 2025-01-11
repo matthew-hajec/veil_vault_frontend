@@ -52,7 +52,7 @@ const HomePage = () => {
             {/* Feature 1 */}
             <Card className="flex flex-col items-center justify-center text-center p-6">
               <img
-                src="/password-mobile-phone.svg"
+                src="https://assets.cryptalyx.com/public/password-mobile-phone.svg"
                 width="70"
                 height="70"
                 alt="Client-Side Encryption"
@@ -70,7 +70,7 @@ const HomePage = () => {
             {/* Feature 2 */}
             <Card className="flex flex-col items-center text-center p-6">
               <img
-                src="/shield-share.svg"
+                src="https://assets.cryptalyx.com/public/shield-share.svg"
                 width="70"
                 height="70"
                 alt="Secure Sharing"
@@ -87,7 +87,7 @@ const HomePage = () => {
             {/* Feature 3 */}
             <Card className="flex flex-col items-center text-center p-6">
               <img
-                src="/code.svg"
+                src="https://assets.cryptalyx.com/public/code.svg"
                 width="70"
                 height="70"
                 alt="Open Source Security"
@@ -104,7 +104,7 @@ const HomePage = () => {
             {/* Feature 4 */}
             <Card className="flex flex-col items-center text-center p-6">
               <img
-                src="user-shield.svg"
+                src="https://assets.cryptalyx.com/public/user-shield.svg"
                 width="70"
                 height="70"
                 alt="Simple and Intuitive"
@@ -132,7 +132,7 @@ const HomePage = () => {
             {/* Step 1 */}
             <Card className="flex flex-col items-center text-center">
               <img
-                src="/key.svg"
+                src="https://assets.cryptalyx.com/public/key.svg"
                 width="60"
                 height="60"
                 alt="Encrypt Your File"
@@ -149,7 +149,7 @@ const HomePage = () => {
             {/* Step 2 */}
             <Card className="flex flex-col items-center text-center">
               <img
-                src="/share-2.svg"
+                src="https://assets.cryptalyx.com/public/share-2.svg"
                 height="60"
                 width="60"
                 alt="Share Securely"
@@ -166,7 +166,7 @@ const HomePage = () => {
             {/* Step 3 */}
             <Card className="flex flex-col items-center text-center">
               <img
-                src="/download.svg"
+                src="https://assets.cryptalyx.com/public/download.svg"
                 height="60"
                 width="60"
                 alt="Decrypt and Download"
